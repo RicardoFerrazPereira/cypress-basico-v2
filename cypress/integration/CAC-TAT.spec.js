@@ -26,10 +26,13 @@ describe('Central de Atendimento ao Cliente TAT', function() {
     })
 
     it.only('preenche os campos obrigatórios e envia o formulário', function() {
+        const longText = 'Teste, teste, teste, teste, teste, teste, teste, teste, teste, teste, teste, teste, teste, teste, teste, teste, teste'
+        
         cy.get('#firstName').type('Ricardo')
         cy.get('#lastName').type('Ferraz')
         cy.get('#email').type('ricardo@gmail.com')
-        cy.get('#open-text-area').type('Testando')
+        //cy.get('#open-text-area').type('Testando')
+        cy.get('#open-text-area').type(longText, { delay: 0 }) // Primeiro argumento é o texto qua vamos digitar e o segundo argumento é um objeto de opções, por isso vem entre chaves
         cy.get('button[type="submit"]').click()  // pega o botão que é do tipo submit e clica nele
 
         cy.get('.success').should('be.visible') // pegar o elemento com a classe success e deixa-lo visível
