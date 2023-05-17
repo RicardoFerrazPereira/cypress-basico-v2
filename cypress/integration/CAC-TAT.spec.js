@@ -14,20 +14,20 @@ describe('Central de Atendimento ao Cliente TAT', function() {
     })
   })
 
-
   // EXERCICIO 
 
   describe('Central de Atendimento ao Cliente TAT', function() {
     this.beforeEach(function() {  // Antes da cada teste, execute esse bloco
         cy.visit('./src/index.html');
-    }) 
-    it('verifica o título da aplicação', function() {
-        cy.title().should('eq', 'Central de Atendimento ao Cliente TAT');
     })
 
-    it.only('preenche os campos obrigatórios e envia o formulário', function() {
+    it('verifica o título da aplicação', function() {
+        cy.title().should('be.equal', 'Central de Atendimento ao Cliente TAT');
+    })
+
+    it('preenche os campos obrigatórios e envia o formulário', function() {
         const longText = 'Teste, teste, teste, teste, teste, teste, teste, teste, teste, teste, teste, teste, teste, teste, teste, teste, teste'
-        
+
         cy.get('#firstName').type('Ricardo')
         cy.get('#lastName').type('Ferraz')
         cy.get('#email').type('ricardo@gmail.com')
@@ -37,6 +37,18 @@ describe('Central de Atendimento ao Cliente TAT', function() {
 
         cy.get('.success').should('be.visible') // pegar o elemento com a classe success e deixa-lo visível
     })
+
+    // AULA 10 -> EXERCICIO EXTRA 2 (lession 02.md)
+
+    it.only('exibe mensagem de erro ao submeter o formulário com um email com formatação inválida', function() {
+        cy.get('#firstName').type('Ricardo')
+        cy.get('#lastName').type('Ferraz')
+        cy.get('#email').type('ricardo@exemplo.com') // adicionar um email ívalido
+        cy.get('#open-text-area').type('Testando')
+        cy.get('button[type="submit"]').click() 
+        cy.get('.error').should('be.visible')
+    })
+
   })
 
 
