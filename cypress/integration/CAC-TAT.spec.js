@@ -87,27 +87,39 @@ describe('Central de Atendimento ao Cliente TAT', function() {
     // Tal teste deve verificar o valor (value) após a digitação (.type(...).should('have.value', 'valor-aqui')), 
     // e após a limpeza do campo (.clear().should('have.value', ''))
 
-    it.only('preenche e limpa os campos nome, sobrenome, email e telefone', function() {
+    it('preenche e limpa os campos nome, sobrenome, email e telefone', function() {
         cy.get('#firstName')  // Pega o input de id "firstName"
             .type('Ricardo')  // Digita "Ricardo"
             .should('have.value', 'Ricardo')  // Verificar - Deve ter o valor de "Ricardo"
             .clear()  // limpar o campo (input)
             .should('have.value', '')  // verificar se o campo está vazio -> Deve ter o valor de vazio
-        cy.get('#lastName')  // Pega o input de id "firstName"
-            .type('Ferraz')  // Digita "Ricardo"
-            .should('have.value', 'Ferraz')  // Verificar - Deve ter o valor de "Ricardo"
-            .clear()  // limpar o campo (input)
-            .should('have.value', '')  // verificar se o campo está vazio -> Deve ter o valor de vazio
-        cy.get('#email')  // Pega o input de id "firstName"
-            .type('ricardo@exemplo.com')  // Digita "Ricardo"
-            .should('have.value', 'ricardo@exemplo.com')  // Verificar - Deve ter o valor de "Ricardo"
-            .clear()  // limpar o campo (input)
+        cy.get('#lastName')  
+            .type('Ferraz') 
+            .should('have.value', 'Ferraz') 
+            .clear()  
+            .should('have.value', '')  
+        cy.get('#email')  
+            .type('ricardo@exemplo.com') 
+            .should('have.value', 'ricardo@exemplo.com') 
+            .clear()  
             .should('have.value', '')  
         cy.get('#phone')  
             .type('21999999999')  
             .should('have.value', '21999999999')  
             .clear()  
             .should('have.value', '')          
+    })
+
+    // AULA 15 -> EXERCICIO EXTRA 6 
+
+    // Crie um teste chamado "exibe mensagem de erro ao submeter o formulário sem preencher os campos obrigatórios".
+    // O teste deve simplesmente acessar a aplicação e clicar no botão Enviar
+    // Tal teste deve verificar que uma mensagem é exibida em um elemento com a classe error   
+
+    it.only('exibe mensagem de erro ao submeter o formulário sem preencher os campos obrigatórios', function() {
+        cy.get('button[type="submit"]').click() // Clicou no botão "Enviar", como não foi preenchido os campos obrigatorios. vai gerar erro
+
+        cy.get('.error').should('be.visible')  // Mensagem de erro deve estar visível
     })
 
 
