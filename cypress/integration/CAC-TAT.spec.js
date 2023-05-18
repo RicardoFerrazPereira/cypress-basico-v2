@@ -70,7 +70,7 @@ describe('Central de Atendimento ao Cliente TAT', function() {
     // Crie um teste chamado exibe mensagem de erro quando o telefone se torna obrigatório mas não é preenchido antes do envio do formulário
     // Tal teste deve verificar que uma mensagem é exibida em um elemento com a classe error
 
-    it.only('exibe mensagem de erro quando o telefone se torna obrigatório mas não é preenchido antes do envio do formulário', function() {
+    it('exibe mensagem de erro quando o telefone se torna obrigatório mas não é preenchido antes do envio do formulário', function() {
         cy.get('#firstName').type('Ricardo')
         cy.get('#lastName').type('Ferraz')
         cy.get('#email').type('ricardo@exemplo.com')
@@ -80,6 +80,36 @@ describe('Central de Atendimento ao Cliente TAT', function() {
 
         cy.get('.error').should('be.visible')
     })
+
+    // AULA 14 -> EXERCICIO EXTRA 5 -> CLEAR() - limpa um campo, para posterior digitação
+
+    // crie um teste chamado "preenche e limpa os campos nome, sobrenome, email e telefone"
+    // Tal teste deve verificar o valor (value) após a digitação (.type(...).should('have.value', 'valor-aqui')), 
+    // e após a limpeza do campo (.clear().should('have.value', ''))
+
+    it.only('preenche e limpa os campos nome, sobrenome, email e telefone', function() {
+        cy.get('#firstName')  // Pega o input de id "firstName"
+            .type('Ricardo')  // Digita "Ricardo"
+            .should('have.value', 'Ricardo')  // Verificar - Deve ter o valor de "Ricardo"
+            .clear()  // limpar o campo (input)
+            .should('have.value', '')  // verificar se o campo está vazio -> Deve ter o valor de vazio
+        cy.get('#lastName')  // Pega o input de id "firstName"
+            .type('Ferraz')  // Digita "Ricardo"
+            .should('have.value', 'Ferraz')  // Verificar - Deve ter o valor de "Ricardo"
+            .clear()  // limpar o campo (input)
+            .should('have.value', '')  // verificar se o campo está vazio -> Deve ter o valor de vazio
+        cy.get('#email')  // Pega o input de id "firstName"
+            .type('ricardo@exemplo.com')  // Digita "Ricardo"
+            .should('have.value', 'ricardo@exemplo.com')  // Verificar - Deve ter o valor de "Ricardo"
+            .clear()  // limpar o campo (input)
+            .should('have.value', '')  
+        cy.get('#phone')  
+            .type('21999999999')  
+            .should('have.value', '21999999999')  
+            .clear()  
+            .should('have.value', '')          
+    })
+
 
   })
 
