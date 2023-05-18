@@ -48,7 +48,7 @@ describe('Central de Atendimento ao Cliente TAT', function() {
     it('exibe mensagem de erro ao submeter o formulário com um email com formatação inválida', function() {
         cy.get('#firstName').type('Ricardo')
         cy.get('#lastName').type('Ferraz')
-        cy.get('#email').type('ricardo@exemplo.com') // adicionar um email ívalido
+        cy.get('#email').type('ricardo@exemplo,com') // adicionar um email ívalido
         cy.get('#open-text-area').type('Testando')
         cy.get('button[type="submit"]').click() 
         cy.get('.error').should('be.visible')
@@ -59,10 +59,26 @@ describe('Central de Atendimento ao Cliente TAT', function() {
     // Visto que o campo de telefone só aceita números, crie um teste para validar que, 
     // se um valor não-numérico for digitado, seu valor continuará vazio.
 
-    it.only('campo telefone continua vazio quando preenchido com valor não-numérico', function() {
+    it('campo telefone continua vazio quando preenchido com valor não-numérico', function() {
         cy.get('#phone')
             .type('abcdefghij')
             .should('have.value', '')
+    })
+
+    // AULA13 -> EXERCICIO EXTRA 4
+
+    // Crie um teste chamado exibe mensagem de erro quando o telefone se torna obrigatório mas não é preenchido antes do envio do formulário
+    // Tal teste deve verificar que uma mensagem é exibida em um elemento com a classe error
+
+    it.only('exibe mensagem de erro quando o telefone se torna obrigatório mas não é preenchido antes do envio do formulário', function() {
+        cy.get('#firstName').type('Ricardo')
+        cy.get('#lastName').type('Ferraz')
+        cy.get('#email').type('ricardo@exemplo.com')
+        cy.get('#phone-checkbox').click() // Marquei o checkbox, para ele se tornar obrigatório e não vou digitar o telefone
+        cy.get('#open-text-area').type('Testando')
+        cy.get('button[type="submit"]').click() 
+
+        cy.get('.error').should('be.visible')
     })
 
   })
