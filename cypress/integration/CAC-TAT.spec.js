@@ -116,14 +116,32 @@ describe('Central de Atendimento ao Cliente TAT', function() {
     // O teste deve simplesmente acessar a aplicação e clicar no botão Enviar
     // Tal teste deve verificar que uma mensagem é exibida em um elemento com a classe error   
 
-    it.only('exibe mensagem de erro ao submeter o formulário sem preencher os campos obrigatórios', function() {
+    it('exibe mensagem de erro ao submeter o formulário sem preencher os campos obrigatórios', function() {
         cy.get('button[type="submit"]').click() // Clicou no botão "Enviar", como não foi preenchido os campos obrigatorios. vai gerar erro
 
         cy.get('.error').should('be.visible')  // Mensagem de erro deve estar visível
     })
 
+    // AULA 16 -> EXERCICIO EXTRA 7 -> Comandos customizados
+
+    // Criar um teste chamado "envia o formuário com sucesso usando um comando customizado"
+    // Tal teste deve fazer uso de um comando chamado fillMandatoryFieldsAndSubmit, o qual deve ser implementado no arquivo cypress/support/commands.js
+    // Deve haver a verificação de que a mensagem de sucesso é exibida
+
+    it.only('envia o formuário com sucesso usando um comando customizado', function() {
+        cy.fillMandatoryFieldsAndSubmit()
+       // cy.get('.success').should('be.visible')
+      
+    })
 
   })
+  Cypress.Commands.add('fillMandatoryFieldsAndSubmit', function() {
+    cy.get('#firstName').type('Ricardo')
+    cy.get('#lastName').type('Ferraz')
+    cy.get('#email').type('ricardo@gmail.com')
+    cy.get('#open-text-area').type('Teste')
+    cy.get('button[type="submit"]').click()
+  }) 
 
 
 
