@@ -37,6 +37,7 @@ describe('Central de Atendimento ao Cliente TAT', function() {
         cy.get('#open-text-area').type(longText, { delay: 0 }) // Primeiro argumento é o texto qua vamos digitar e o segundo argumento é um objeto de opções, por isso vem entre chaves
         cy.get('button[type="submit"]').click()  // pega o botão que é do tipo submit e clica nele
 
+
         cy.get('.success').should('be.visible') // pegar o elemento com a classe success e deixa-lo visível
     })
 
@@ -128,20 +129,41 @@ describe('Central de Atendimento ao Cliente TAT', function() {
     // Tal teste deve fazer uso de um comando chamado fillMandatoryFieldsAndSubmit, o qual deve ser implementado no arquivo cypress/support/commands.js
     // Deve haver a verificação de que a mensagem de sucesso é exibida
 
-    it.only('envia o formuário com sucesso usando um comando customizado', function() {
+    it('envia o formuário com sucesso usando um comando customizado', function() {
         cy.fillMandatoryFieldsAndSubmit()
-       // cy.get('.success').should('be.visible')
+        
+        cy.get('.success').should('be.visible')
       
     })
 
+    // AULA 17 -> Contains() = encontra (identifica) um elemento
+    // Quando não temos um selector tão específico para identificar um elemento, 
+    // mas o elemento pode ter um texto que é único, então usamos o contains()
+    // Podemos usar em qualquer elemento que tenha um texto específico.
+    // Primeiro argumento => selector / Segundo argumento = texto desse selector
+
+
+    it.only('preenche os campos obrigatórios e envia o formulário com contains', function() {
+        const longText = 'Teste, teste, teste, teste, teste, teste, teste, teste, teste, teste, teste, teste, teste, teste, teste, teste, teste'
+
+        cy.get('#firstName').type('Ricardo')
+        cy.get('#lastName').type('Ferraz')
+        cy.get('#email').type('ricardo@gmail.com')
+        cy.get('#open-text-area').type('Testando')
+        //cy.get('button[type="submit"]').click() 
+        cy.contains('button', 'Enviar').click() // encontra o elemento (tag 'button') que tenha o texto "Enviar" e clica nele
+
+        cy.get('.success').should('be.visible') // pegar o elemento com a classe success e deixa-lo visível
+    })
+
   })
-  Cypress.Commands.add('fillMandatoryFieldsAndSubmit', function() {
-    cy.get('#firstName').type('Ricardo')
-    cy.get('#lastName').type('Ferraz')
-    cy.get('#email').type('ricardo@gmail.com')
-    cy.get('#open-text-area').type('Teste')
-    cy.get('button[type="submit"]').click()
-  }) 
+//   Cypress.Commands.add('fillMandatoryFieldsAndSubmit', function() {
+//     cy.get('#firstName').type('Ricardo')
+//     cy.get('#lastName').type('Ferraz')
+//     cy.get('#email').type('ricardo@gmail.com')
+//     cy.get('#open-text-area').type('Teste')
+//     cy.get('button[type="submit"]').click()
+//   }) 
 
 
 
