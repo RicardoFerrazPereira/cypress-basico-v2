@@ -194,10 +194,25 @@ describe('Central de Atendimento ao Cliente TAT', function() {
     // AULA 23 MARCANDO INPUTS DO TIPO RADIO
     // EXERCÍCIO -> marca o tipo de atendimento "Feedback"
 
-    it.only('marca o tipo de atendimento "Feedback"', function() {
+    it('marca o tipo de atendimento "Feedback"', function() {
         cy.get('input[type="radio"][value="feedback"]') // Identificamos o elemento, que é um "input" que tem a propriedade type com valro "radio" e também tem propriede "value" com valor "feedback"
           .check()
           .should('have.value', 'feedback')
+    })
+
+    // AULA 24 - EXERCÍCIO EXTRA
+    // Crie um teste chamado marca cada tipo de atendimento
+    // Faça a verificação de que após o .check(), cada radio foi marcado (.should('be.checked'))
+    // Obs. Quando a gente faz um "cy.get" que retorna mais de um elemento, usamos o each para pegar esses elementos
+
+    it.only('marca cada tipo de atendimento', function() {
+        cy.get('input[type="radio"]')  // Vai identificar todos os elementos de type "radio"
+          .should('have.length', 3)  // Verifica se o tamanho do array são 3 elementos
+          .each(function($radio) {  // Pegar cada um dos elementos 'radio' (laço). O "each" recebe ua função de callback, que recebe com argumento ($radio) cada um dos elementos que foram selecionados
+            cy.wrap($radio)  // Empacotar cada um desses "radios"
+              .check()
+            cy.wrap($radio).should('be.checked') // Verificar se a caixa foi marcada
+          })
     })
 
   })
