@@ -185,10 +185,19 @@ describe('Central de Atendimento ao Cliente TAT', function() {
     // AULA 21 - SELECIONANDO OPÇÕES DE CAMPOS DE SELEÇÃO SUSPENSA
     // EXERCÍCIO EXTRA 2 - SELECIONAR UM PRODUTO (BLOG) PELO SEU ÍNDICE
 
-    it.only('seleciona um produto (Blog) por seu índice', function() {
+    it('seleciona um produto (Blog) por seu índice', function() {
         cy.get('#product')
           .select(1)
           .should('have.value', 'blog')
+    })
+
+    // AULA 23 MARCANDO INPUTS DO TIPO RADIO
+    // EXERCÍCIO -> marca o tipo de atendimento "Feedback"
+
+    it.only('marca o tipo de atendimento "Feedback"', function() {
+        cy.get('input[type="radio"][value="feedback"]') // Identificamos o elemento, que é um "input" que tem a propriedade type com valro "radio" e também tem propriede "value" com valor "feedback"
+          .check()
+          .should('have.value', 'feedback')
     })
 
   })
