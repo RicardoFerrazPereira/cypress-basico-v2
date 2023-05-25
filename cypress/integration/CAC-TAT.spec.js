@@ -156,7 +156,7 @@ describe('Central de Atendimento ao Cliente TAT', function() {
         cy.get('.success').should('be.visible') // pegar o elemento com a classe success e deixa-lo visível
     })
 
-    // AULA 18 - SELECIONANDO OPÇÕES DE CAMPOS DE SELEÇÃO SUSPENSA
+    // AULA 18 e 19 - SELECIONANDO OPÇÕES DE CAMPOS DE SELEÇÃO SUSPENSA
     // Para a seleção de opções em campos de seleção suspensa, o Cypress oferece o comando .select().
     // Com tal comando, você pode identificar um elemento do tipo select (com um cy.get('select'), por exemplo), e então, encadear o
     // comando .select(), passando o valor a ser escolhido (por seu texto, pelo valor do atributo value, ou por seu índice).
@@ -166,11 +166,29 @@ describe('Central de Atendimento ao Cliente TAT', function() {
     // cy.get('select').select('youtube') // Seleção pelo value youtube
     // cy.get('select').select(1) // Seleção pelo índice 1
 
-    it.only('seleciona um produto (YouTube) por seu texto', function() {
+    it('seleciona um produto (YouTube) por seu texto', function() {
 
         cy.get('#product') // pega o elemento com de Id product. Se só tivesse um select, poderia usar o elemento 'select' ao invés do ID
           .select('YouTube') // seleciona youtube
           .should('have.value', 'youtube') // Verifica se o valor é 'youtube
+    })
+
+    // AULA 20 - SELECIONANDO OPÇÕES DE CAMPOS DE SELEÇÃO SUSPENSA
+    // EXERCÍCIO EXTRA 1 - SELECIONAR UM PRODUTO PELO SEU VALOR
+
+    it('seleciona um produto (Mentoria) por seu valor (value)', function() {
+        cy.get('#product')
+          .select('mentoria')
+          .should('have.value', 'mentoria')
+    })
+
+    // AULA 21 - SELECIONANDO OPÇÕES DE CAMPOS DE SELEÇÃO SUSPENSA
+    // EXERCÍCIO EXTRA 2 - SELECIONAR UM PRODUTO (BLOG) PELO SEU ÍNDICE
+
+    it.only('seleciona um produto (Blog) por seu índice', function() {
+        cy.get('#product')
+          .select(1)
+          .should('have.value', 'blog')
     })
 
   })
